@@ -21,6 +21,9 @@
 </head>
 <body>
 
+  <!-- Canvas sutil para chispas / confeti festivo -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
   <div class="app-container">
 
     <!-- Barra Superior / Control de Audio -->
@@ -40,21 +43,21 @@
     </header>
 
     <!-- Sección Hero Principal -->
-    <section id="inicio" class="hero-section">
-      <span class="hero-pill">Estás Invitado a Celebrar</span>
-      <h1 class="hero-title">MATEO</h1>
+    <section id="inicio" class="hero-section reveal-on-scroll">
+      <span class="hero-pill animate-float">Estás Invitado a Celebrar</span>
+      <h1 class="hero-title animate-title">MATEO</h1>
       <p class="hero-subtitle">Mi Cumpleaños • Noche Inolvidable</p>
 
       <!-- Foto Principal Destacada -->
-      <div class="main-photo-wrapper">
+      <div class="main-photo-wrapper animate-card">
         <div class="main-photo-inner">
           <img src="assets/foto-principal.jpg" alt="Mateo - Foto Principal" class="main-photo-img" loading="eager">
-          <div class="photo-badge-date">VIERNES 23 DE OCTUBRE</div>
+          <div class="photo-badge-date animate-pulse-badge">VIERNES 23 DE OCTUBRE</div>
         </div>
       </div>
 
       <!-- Dedicatoria Emotiva -->
-      <div class="dedication-card">
+      <div class="dedication-card animate-card">
         <p class="dedication-text">
           Con la bendición de Dios y el amor que mi familia me ha dado, me siento feliz de llegar a este momento de mi vida, el día que dejaré atrás mi infancia y comenzaré un nuevo viaje. Gracias a mis padres Lorena y Omar, tienen el deseo de compartir este día especial.
         </p>
@@ -64,7 +67,7 @@
     </section>
 
     <!-- Sección Cuenta Regresiva -->
-    <section class="countdown-section">
+    <section class="countdown-section reveal-on-scroll">
       <div class="section-label">Falta muy poco</div>
       <h2 class="section-title">Cuenta Regresiva</h2>
 
@@ -88,18 +91,18 @@
       </div>
 
       <!-- Botón Agendar Fecha -->
-      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumplea%C3%B1os+de+Mateo&dates=20261023T250000Z/20261024T080000Z&details=Festejo+del+cumplea%C3%B1os+de+Mateo.+Sal%C3%B3n+Nago%2C+Villa+Vatteone.+Dresscode%3A+Elegante+Sport+(Color+azul+prohibido).&location=3+de+febrero+esquina+mar+chiquita%2C+Sal%C3%B3n+Nago%2C+Villa+Vatteone" target="_blank" rel="noopener noreferrer" class="btn-calendar">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumplea%C3%B1os+de+Mateo&dates=20261023T250000Z/20261024T080000Z&details=Festejo+del+cumplea%C3%B1os+de+Mateo.+Sal%C3%B3n+Nago%2C+Villa+Vatteone.+Dresscode%3A+Elegante+Sport+(Color+azul+prohibido).&location=3+de+febrero+esquina+mar+chiquita%2C+Sal%C3%B3n+Nago%2C+Villa+Vatteone" target="_blank" rel="noopener noreferrer" class="btn-calendar hover-lift">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
         <span>Agendar en Google Calendar</span>
       </a>
     </section>
 
     <!-- Sección Cuándo y Dónde -->
-    <section class="event-info-section">
+    <section class="event-info-section reveal-on-scroll">
       <div class="info-cards-stack">
         
         <!-- Tarjeta Cuándo -->
-        <div class="info-card">
+        <div class="info-card hover-lift">
           <div class="info-card-icon-box">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           </div>
@@ -114,7 +117,7 @@
         </div>
 
         <!-- Tarjeta Dónde -->
-        <div class="info-card">
+        <div class="info-card hover-lift">
           <div class="info-card-icon-box">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
           </div>
@@ -127,7 +130,7 @@
             </p>
 
             <div class="map-buttons-row">
-              <a href="https://www.google.com/maps/search/?api=1&query=3+de+febrero+esquina+mar+chiquita+villa+vatteone" target="_blank" rel="noopener noreferrer" class="btn-action-sm">
+              <a href="https://www.google.com/maps/search/?api=1&query=3+de+febrero+esquina+mar+chiquita+villa+vatteone" target="_blank" rel="noopener noreferrer" class="btn-action-sm hover-lift">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
                 <span>Cómo Llegar en Google Maps</span>
               </a>
@@ -148,8 +151,8 @@
     </section>
 
     <!-- Sección Dresscode -->
-    <section class="dresscode-section">
-      <div class="dresscode-card">
+    <section class="dresscode-section reveal-on-scroll">
+      <div class="dresscode-card hover-lift">
         <div class="section-label">Código de Vestimenta</div>
         <h2 class="dresscode-title">Dresscode</h2>
         <div class="dresscode-badge">Elegante Sport</div>
@@ -169,43 +172,59 @@
       </div>
     </section>
 
-    <!-- Sección Confirmación de Asistencia (RSVP) -->
-    <section id="confirmacion" class="rsvp-section">
-      <div class="rsvp-box">
-        <div class="rsvp-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span>RSVP</span>
+    <!-- Sección Confirmación de Asistencia (RSVP) - ULTRA DESTACADO CON MÁXIMA ATENCIÓN -->
+    <section id="confirmacion" class="rsvp-section reveal-on-scroll">
+      <div class="rsvp-box rsvp-box-magnetic">
+        
+        <!-- Badge animado pulsante -->
+        <div class="rsvp-pulse-badge">
+          <span class="pulse-beacon"></span>
+          <span>⚡ CONFIRMACIÓN OBLIGATORIA</span>
         </div>
-        <h2 class="rsvp-title">Confirmá tu Asistencia</h2>
+
+        <h2 class="rsvp-title">¿Contamos con tu Presencia?</h2>
         <p class="rsvp-desc">
-          Tu presencia es fundamental para mí. Por favor completá el breve formulario antes de la fecha para que podamos organizar todo a la perfección.
+          Tu confirmación es <strong>imprescindible</strong> para organizar tu lugar en el salón y la recepción. ¡Completá el formulario en 1 minuto!
         </p>
 
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6eunSq3M0JU7AEEc3FDHYPXCZyqcEauJ_jpB_qielFPL_JQ/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-rsvp-primary">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          <span>Completar Formulario de Asistencia</span>
-        </a>
+        <!-- Botón Gigante Animado con Aura y Shimmer -->
+        <div class="rsvp-btn-container">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6eunSq3M0JU7AEEc3FDHYPXCZyqcEauJ_jpB_qielFPL_JQ/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-rsvp-epic" id="mainRsvpBtn">
+            <span class="btn-rsvp-glow"></span>
+            <span class="btn-rsvp-inner">
+              <svg class="rsvp-check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span class="btn-rsvp-text">¡CONFIRMAR ASISTENCIA AQUÍ!</span>
+              <svg class="rsvp-arrow-animated" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </span>
+          </a>
+        </div>
+
+        <div class="rsvp-urgency-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Por favor no lo dejes pasar, ¡los cupos son limitados!</span>
+        </div>
+
       </div>
     </section>
 
-    <!-- Sección Regalos y Alias -->
-    <section class="gift-section">
-      <div class="gift-card">
+    <!-- Sección Regalos y Alias (Sin mencionar cuentas bancarias) -->
+    <section class="gift-section reveal-on-scroll">
+      <div class="gift-card hover-lift">
         <div class="gift-icon-bubble">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
         </div>
         <div class="section-label">Sugerencia de Regalo</div>
         <h2 class="gift-title">Mi Mayor Regalo es Tu Compañía</h2>
         <p class="gift-phrase">
-          Si deseás hacerme un presente y no sabés qué regalarme, podés colaborar con mi viaje y proyectos a través de mi cuenta bancaria:
+          Si no sabés qué regalarme y deseás hacerme un presente, te paso mi alias:
         </p>
 
         <div class="alias-box-wrapper">
           <div class="alias-info">
-            <div class="alias-label">Alias de Cuenta</div>
+            <div class="alias-label">Alias</div>
             <div class="alias-value" id="aliasValue">Teomp.15</div>
           </div>
-          <button id="btnCopyAlias" class="btn-copy-alias" type="button" aria-label="Copiar Alias">
+          <button id="btnCopyAlias" class="btn-copy-alias hover-lift" type="button" aria-label="Copiar Alias">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             <span>Copiar Alias</span>
           </button>
@@ -213,62 +232,66 @@
       </div>
     </section>
 
-    <!-- Sección Galería de Recuerdos / Mi Camino -->
-    <section class="gallery-section">
-      <div style="text-align: center; margin-bottom: 1.75rem;">
-        <div class="section-label">Recuerdos Inolvidables</div>
-        <h2 class="section-title">Mi Historia y Camino</h2>
-        <p style="font-size: 0.95rem; max-width: 480px; margin: 0 auto; color: var(--color-text-muted);">
-          Cada paso que di me trajo hasta este gran día. Hacé clic en las fotos para verlas en detalle.
-        </p>
+    <!-- Sección Galería de Fotos en SLIDER INTERACTIVO (Sin "mi camino") -->
+    <section class="gallery-section reveal-on-scroll">
+      <div class="section-header-center">
+        <div class="section-label">Galería</div>
+        <h2 class="section-title">Fotos</h2>
+        <p class="gallery-subtext">Deslizá para ver las fotos</p>
       </div>
 
-      <div class="gallery-grid">
-        
-        <!-- Foto 1: Helicóptero / Aventuras -->
-        <div class="gallery-card" title="Ver foto">
-          <div class="gallery-img-container">
-            <img src="assets/mateo-helicoptero.jpg" alt="Mateo - Nuevos Horizontes" class="gallery-img" loading="lazy">
+      <!-- Slider Touch-Friendly -->
+      <div class="slider-wrapper" id="sliderWrapper">
+        <div class="slider-track" id="sliderTrack">
+          
+          <!-- Slide 1: Helicóptero -->
+          <div class="slider-slide" data-slide="0">
+            <div class="slide-card">
+              <img src="assets/mateo-helicoptero.jpg" alt="Foto de Mateo" class="slide-image" loading="lazy">
+            </div>
           </div>
-          <div class="gallery-caption">
-            <div class="gallery-caption-title">Nuevos Horizontes</div>
-            <div class="gallery-caption-desc">Volando alto hacia nuevos sueños y metas.</div>
+
+          <!-- Slide 2: Fútbol -->
+          <div class="slider-slide" data-slide="1">
+            <div class="slide-card">
+              <img src="assets/mateo-futbol.jpg" alt="Foto de Mateo jugando al fútbol" class="slide-image" loading="lazy">
+            </div>
           </div>
+
+          <!-- Slide 3: Infancia y Tambor -->
+          <div class="slider-slide" data-slide="2">
+            <div class="slide-card">
+              <img src="assets/mateo-infancia-tambor.png" alt="Foto de Mateo en su infancia con tambor" class="slide-image" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Slide 4: Familia en la Playa -->
+          <div class="slider-slide" data-slide="3">
+            <div class="slide-card">
+              <img src="assets/mateo-familia-playa.png" alt="Foto de Mateo con Lorena y Omar en la playa" class="slide-image" loading="lazy">
+            </div>
+          </div>
+
         </div>
 
-        <!-- Foto 2: Fútbol / Pasión -->
-        <div class="gallery-card" title="Ver foto">
-          <div class="gallery-img-container">
-            <img src="assets/mateo-futbol.jpg" alt="Mateo - Pasión por el Fútbol" class="gallery-img" loading="lazy">
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-caption-title">Pasión y Deporte</div>
-            <div class="gallery-caption-desc">El amor por la camiseta y el juego en equipo.</div>
-          </div>
+        <!-- Botones de Navegación Flechas -->
+        <button class="slider-arrow slider-arrow-prev" id="sliderPrevBtn" aria-label="Foto anterior">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="slider-arrow slider-arrow-next" id="sliderNextBtn" aria-label="Siguiente foto">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <!-- Indicadores / Dots -->
+        <div class="slider-dots-container" id="sliderDots">
+          <button class="slider-dot active" data-index="0" aria-label="Ir a foto 1"></button>
+          <button class="slider-dot" data-index="1" aria-label="Ir a foto 2"></button>
+          <button class="slider-dot" data-index="2" aria-label="Ir a foto 3"></button>
+          <button class="slider-dot" data-index="3" aria-label="Ir a foto 4"></button>
         </div>
 
-        <!-- Foto 3: Infancia y Tambor -->
-        <div class="gallery-card" title="Ver foto">
-          <div class="gallery-img-container">
-            <img src="assets/mateo-infancia-tambor.png" alt="Mateo - Alegría desde la Infancia" class="gallery-img" loading="lazy">
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-caption-title">Alegría y Ritmo</div>
-            <div class="gallery-caption-desc">Creciendo con pasión, música y sonrisas.</div>
-          </div>
-        </div>
-
-        <!-- Foto 4: Familia en la Playa -->
-        <div class="gallery-card" title="Ver foto">
-          <div class="gallery-img-container">
-            <img src="assets/mateo-familia-playa.png" alt="Mateo con Lorena y Omar en la Playa" class="gallery-img" loading="lazy">
-          </div>
-          <div class="gallery-caption">
-            <div class="gallery-caption-title">Familia Incondicional</div>
-            <div class="gallery-caption-desc">Con mis queridos padres, Lorena y Omar.</div>
-          </div>
-        </div>
-
+        <!-- Contador numérico del slider -->
+        <div class="slider-counter-badge" id="sliderCounter">1 / 4</div>
       </div>
     </section>
 
@@ -281,25 +304,33 @@
       </p>
       <div class="footer-divider"></div>
       <div class="footer-copy">
-        Mateo • 23 de Octubre de 2026 • Salón Nago
+        Mateo • Viernes 23 de Octubre de 2026 • Salón Nago
       </div>
     </footer>
 
   </div>
 
-  <!-- Modal Lightbox para Ampliar Fotos -->
+  <!-- Botón Flotante Persistente de RSVP (Para que nadie se lo pierda al scrollear) -->
+  <aside class="floating-rsvp-wrapper" id="floatingRsvpWrapper" aria-label="Confirmación flotante">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6eunSq3M0JU7AEEc3FDHYPXCZyqcEauJ_jpB_qielFPL_JQ/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="floating-rsvp-btn">
+      <span class="floating-pulse-dot"></span>
+      <span class="floating-rsvp-label">¡Confirmar Asistencia!</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+  </aside>
+
+  <!-- Modal Lightbox para Ampliar Fotos del Slider -->
   <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Visualizador de fotos">
     <div class="lightbox-content">
       <button id="lightboxCloseBtn" class="lightbox-close-btn" aria-label="Cerrar vista previa">✕</button>
       <img id="lightboxImg" class="lightbox-img" src="" alt="">
-      <div id="lightboxCaption" class="lightbox-caption"></div>
     </div>
   </div>
 
   <!-- Toast Flotante de Notificaciones -->
   <div id="toastNotice" class="toast-notice" role="status" aria-live="polite"></div>
 
-  <!-- Scripts: ubicado en js/ para evitar cualquier interpretación de Node/Serverless en Vercel -->
+  <!-- Scripts: ubicado en js/ para evitar cualquier interpretación errónea en Vercel -->
   <script src="js/app.js"></script>
 </body>
 </html>

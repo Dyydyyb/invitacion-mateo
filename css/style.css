@@ -36,8 +36,8 @@
   /* Sombras elegantes mate sin resplandores */
   --shadow-sm: 0 1px 3px rgba(15, 36, 74, 0.05);
   --shadow-md: 0 4px 14px rgba(15, 36, 74, 0.08);
-  --shadow-lg: 0 10px 25px rgba(15, 36, 74, 0.1);
-  --shadow-card: 0 8px 30px rgba(15, 36, 74, 0.07);
+  --shadow-lg: 0 10px 25px rgba(15, 36, 74, 0.12);
+  --shadow-card: 0 8px 30px rgba(15, 36, 74, 0.08);
 
   /* Bordes y transiciones */
   --radius-sm: 8px;
@@ -70,19 +70,15 @@ body {
   position: relative;
 }
 
-/* Decoración de fondo sutil tipo papel de fiesta con textura geométrica fina */
-body::before {
-  content: "";
+/* Canvas de Confeti */
+.confetti-canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 20%, rgba(30, 58, 138, 0.02) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(15, 36, 74, 0.02) 0%, transparent 40%);
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
-  z-index: -1;
+  z-index: 99;
 }
 
 /* Contenedor centralizado para máxima elegancia móvil y desktop */
@@ -109,13 +105,57 @@ p {
 }
 
 /* ==========================================================================
+   Animaciones Generales y Scroll Reveal
+   ========================================================================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hover-lift {
+  transition: var(--transition);
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Flotación suave para la foto y badges */
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: floatGentle 4s ease-in-out infinite;
+}
+
+/* Pulso para la fecha en la foto principal */
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.animate-pulse-badge {
+  animation: badgePulse 3s ease-in-out infinite;
+}
+
+/* ==========================================================================
    Barra Superior / Audio Control
    ========================================================================== */
 .top-nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(15, 36, 74, 0.08);
@@ -217,12 +257,12 @@ p {
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 3.2rem;
   line-height: 1.1;
   margin-bottom: 0.5rem;
   color: var(--color-blue-primary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 .hero-subtitle {
@@ -244,6 +284,11 @@ p {
   background: #ffffff;
   box-shadow: var(--shadow-card);
   border: 1px solid rgba(15, 36, 74, 0.12);
+  transition: transform 0.4s ease;
+}
+
+.main-photo-wrapper:hover {
+  transform: translateY(-4px);
 }
 
 .main-photo-inner {
@@ -271,15 +316,16 @@ p {
   position: absolute;
   bottom: 14px;
   right: 14px;
-  background: rgba(15, 36, 74, 0.92);
+  background: rgba(15, 36, 74, 0.94);
   color: #ffffff;
-  padding: 0.4rem 0.85rem;
+  padding: 0.4rem 0.9rem;
   border-radius: var(--radius-sm);
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 /* Carta de Dedicatoria */
@@ -379,6 +425,12 @@ p {
   transition: var(--transition);
 }
 
+.countdown-card:hover {
+  transform: scale(1.05);
+  background: #ffffff;
+  border-color: var(--color-blue-accent);
+}
+
 .countdown-number {
   font-family: var(--font-serif);
   font-size: 2rem;
@@ -410,7 +462,6 @@ p {
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  transition: var(--transition);
   box-shadow: var(--shadow-sm);
 }
 
@@ -445,12 +496,6 @@ p {
   display: flex;
   gap: 1.25rem;
   align-items: flex-start;
-  transition: var(--transition);
-}
-
-.info-card:hover {
-  border-color: var(--color-blue-accent);
-  box-shadow: var(--shadow-md);
 }
 
 .info-card-icon-box {
@@ -508,26 +553,12 @@ p {
   font-size: 0.82rem;
   font-weight: 700;
   text-decoration: none;
-  transition: var(--transition);
   border: none;
   cursor: pointer;
 }
 
 .btn-action-sm:hover {
   background: var(--color-blue-accent);
-  transform: translateY(-1px);
-}
-
-.btn-action-secondary {
-  background: #ffffff;
-  color: var(--color-blue-primary);
-  border: 1px solid var(--color-blue-border);
-}
-
-.btn-action-secondary:hover {
-  background: var(--color-bg-tint);
-  border-color: var(--color-blue-primary);
-  color: var(--color-blue-primary);
 }
 
 /* Mapa embebido */
@@ -617,83 +648,250 @@ p {
 }
 
 /* ==========================================================================
-   Sección: Confirmación de Asistencia (RSVP)
+   Sección: Confirmación de Asistencia (RSVP) - MÁXIMO IMPACTO VISUAL
    ========================================================================== */
 .rsvp-section {
-  padding: 2.75rem 1.5rem;
+  padding: 3rem 1.5rem;
   background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
   text-align: center;
   border-bottom: 1px solid rgba(15, 36, 74, 0.06);
 }
 
-.rsvp-box {
+.rsvp-box-magnetic {
   max-width: 580px;
   margin: 0 auto;
   background: #ffffff;
-  border: 1px solid var(--color-blue-border);
+  border: 2px solid var(--color-blue-primary);
   border-radius: var(--radius-lg);
-  padding: 2.25rem 1.5rem;
-  box-shadow: var(--shadow-card);
+  padding: 2.5rem 1.5rem;
+  box-shadow: 0 12px 35px rgba(15, 36, 74, 0.12);
+  position: relative;
+  overflow: hidden;
 }
 
-.rsvp-badge {
+/* Borde superior decorativo en azul marino */
+.rsvp-box-magnetic::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #0f244a 0%, #2563eb 50%, #0f244a 100%);
+}
+
+.rsvp-pulse-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: var(--color-blue-soft);
-  color: var(--color-blue-accent);
-  padding: 0.35rem 0.9rem;
+  gap: 0.5rem;
+  background: #eff6ff;
+  color: #1e3a8a;
+  border: 1.5px solid #bfdbfe;
+  padding: 0.45rem 1.15rem;
   border-radius: var(--radius-full);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 1rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+}
+
+.pulse-beacon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  position: relative;
+}
+
+.pulse-beacon::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #2563eb;
+  animation: beaconPulse 1.8s infinite;
+}
+
+@keyframes beaconPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
 .rsvp-title {
-  font-size: 2rem;
+  font-size: 2.1rem;
+  line-height: 1.2;
   margin-bottom: 0.75rem;
   color: var(--color-blue-primary);
 }
 
 .rsvp-desc {
-  font-size: 0.98rem;
+  font-size: 1rem;
   color: var(--color-text-muted);
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.6;
 }
 
-.btn-rsvp-primary {
-  display: inline-flex;
+.rsvp-desc strong {
+  color: var(--color-blue-primary);
+}
+
+/* Botón Épico de RSVP con Animación Constante */
+.rsvp-btn-container {
+  margin: 0 auto 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-rsvp-epic {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #0f244a 0%, #1e3a8a 100%);
+  padding: 1.25rem 2.25rem;
+  width: 100%;
+  max-width: 440px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(15, 36, 74, 0.3);
+  animation: epicPulse 2.8s ease-in-out infinite;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+@keyframes epicPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 24px rgba(15, 36, 74, 0.28);
+  }
+  50% {
+    transform: scale(1.025);
+    box-shadow: 0 12px 32px rgba(30, 58, 138, 0.45);
+  }
+}
+
+.btn-rsvp-epic:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 16px 36px rgba(15, 36, 74, 0.4);
+}
+
+/* Efecto Shimmer de luz que pasa por el botón */
+.btn-rsvp-epic::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  animation: shimmerSweep 3.5s infinite;
+}
+
+@keyframes shimmerSweep {
+  0% { left: -60%; }
+  35%, 100% { left: 140%; }
+}
+
+.btn-rsvp-inner {
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
-  background: var(--color-blue-primary);
+  gap: 0.75rem;
   color: #ffffff;
-  padding: 1rem 2rem;
-  border-radius: var(--radius-full);
-  font-size: 1.05rem;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 14px rgba(15, 36, 74, 0.25);
-  border: none;
-  width: 100%;
-  max-width: 380px;
+  position: relative;
+  z-index: 2;
 }
 
-.btn-rsvp-primary:hover {
-  background: var(--color-blue-accent);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(15, 36, 74, 0.3);
+.btn-rsvp-text {
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Flecha animada hacia la derecha */
+.rsvp-arrow-animated {
+  animation: arrowBounce 1.4s infinite ease-in-out;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+.rsvp-urgency-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--color-blue-accent);
+  font-weight: 600;
 }
 
 /* ==========================================================================
-   Sección: Regalos y Alias (Teomp.15)
+   Botón Flotante Persistente en Pantalla (Sticky RSVP)
+   ========================================================================== */
+.floating-rsvp-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 90;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.floating-rsvp-wrapper.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.floating-rsvp-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-blue-primary);
+  color: #ffffff;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(15, 36, 74, 0.35);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.floating-rsvp-btn:hover {
+  background: var(--color-blue-accent);
+  transform: scale(1.04);
+}
+
+.floating-pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  box-shadow: 0 0 6px #3b82f6;
+  animation: pulse 1.2s infinite;
+}
+
+/* ==========================================================================
+   Sección: Regalos y Alias (Teomp.15 - Sin cuenta bancaria)
    ========================================================================== */
 .gift-section {
   padding: 2.5rem 1.5rem;
@@ -769,7 +967,7 @@ p {
 }
 
 .alias-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -778,7 +976,7 @@ p {
 
 .alias-value {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--color-blue-primary);
   letter-spacing: 0.05em;
@@ -797,14 +995,12 @@ p {
   align-items: center;
   gap: 0.45rem;
   cursor: pointer;
-  transition: var(--transition);
   box-shadow: var(--shadow-sm);
   white-space: nowrap;
 }
 
 .btn-copy-alias:hover {
   background: var(--color-blue-accent);
-  transform: translateY(-1px);
 }
 
 .btn-copy-alias.copied {
@@ -812,55 +1008,64 @@ p {
 }
 
 /* ==========================================================================
-   Sección: Galería de Fotos y Recuerdos
+   Sección: Galería de Fotos en Slider (Sin textos innecesarios)
    ========================================================================== */
 .gallery-section {
-  padding: 2.5rem 1.5rem;
+  padding: 2.75rem 1.5rem;
   background: var(--color-bg-alt);
   border-bottom: 1px solid rgba(15, 36, 74, 0.06);
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  max-width: 580px;
+.section-header-center {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.gallery-subtext {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Contenedor del Slider */
+.slider-wrapper {
+  position: relative;
+  max-width: 460px;
   margin: 0 auto;
-}
-
-@media (min-width: 480px) {
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.gallery-card {
-  background: #ffffff;
-  border: 1px solid rgba(15, 36, 74, 0.1);
-  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  padding: 10px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(15, 36, 74, 0.12);
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.slider-track {
   display: flex;
-  flex-direction: column;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.slider-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2px;
+}
+
+.slide-card {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: calc(var(--radius-lg) - 6px);
+  overflow: hidden;
+  background: #0f244a;
+  position: relative;
   cursor: pointer;
 }
 
-.gallery-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-blue-accent);
-}
-
-.gallery-img-container {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  background-color: #0f244a;
-  overflow: hidden;
-  position: relative;
-}
-
-.gallery-img {
+.slide-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -868,26 +1073,82 @@ p {
   transition: transform 0.5s ease;
 }
 
-.gallery-card:hover .gallery-img {
-  transform: scale(1.05);
+.slide-card:hover .slide-image {
+  transform: scale(1.04);
 }
 
-.gallery-caption {
-  padding: 0.85rem 1rem;
-  background: #ffffff;
-  border-top: 1px solid rgba(15, 36, 74, 0.06);
-}
-
-.gallery-caption-title {
-  font-size: 0.92rem;
-  font-weight: 700;
+/* Flechas de Navegación del Slider */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
   color: var(--color-blue-primary);
-  margin-bottom: 0.15rem;
+  border: 1px solid rgba(15, 36, 74, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.gallery-caption-desc {
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
+.slider-arrow:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.slider-arrow-prev {
+  left: 18px;
+}
+
+.slider-arrow-next {
+  right: 18px;
+}
+
+/* Dots / Indicadores */
+.slider-dots-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: #cbd5e1;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.slider-dot.active {
+  width: 24px;
+  background: var(--color-blue-primary);
+}
+
+/* Contador */
+.slider-counter-badge {
+  position: absolute;
+  bottom: 22px;
+  right: 22px;
+  background: rgba(15, 36, 74, 0.85);
+  color: #ffffff;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(4px);
+  z-index: 5;
 }
 
 /* ==========================================================================
@@ -981,24 +1242,17 @@ p {
 
 .lightbox-img {
   max-width: 100%;
-  max-height: 75vh;
+  max-height: 80vh;
   border-radius: var(--radius-md);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   object-fit: contain;
-}
-
-.lightbox-caption {
-  color: #ffffff;
-  font-size: 0.95rem;
-  margin-top: 1rem;
-  text-align: center;
 }
 
 .lightbox-close-btn {
   position: absolute;
   top: -45px;
   right: 0;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   color: #ffffff;
   border: none;
   width: 36px;
@@ -1013,7 +1267,7 @@ p {
 }
 
 .lightbox-close-btn:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 /* Toast de Notificación */

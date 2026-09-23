@@ -1,20 +1,50 @@
 /**
  * Invitación de Cumpleaños de Mateo
- * Lógica interactiva: Countdown, Copiar Alias, Lightbox de Galería y Sonido Ambiente
+ * Lógica interactiva: Countdown, Slider de Fotos Touch, Copiar Alias,
+ * Animaciones on-scroll, Confeti festivo y RSVP flotante.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
   initCountdown();
   initCopyAlias();
+  initPhotoSlider();
   initLightbox();
+  initFloatingRsvp();
   initAmbientAudio();
+  initConfetti();
 });
 
 /* ==========================================================================
-   1. Cuenta Regresiva (Viernes 23 de Octubre a las 22:00 hs)
+   1. Animaciones al Scrollear (Scroll Reveal)
+   ========================================================================== */
+function initScrollAnimations() {
+  const elements = document.querySelectorAll('.reveal-on-scroll');
+
+  if (!('IntersectionObserver' in window)) {
+    elements.forEach(el => el.classList.add('revealed'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  elements.forEach(el => observer.observe(el));
+}
+
+/* ==========================================================================
+   2. Cuenta Regresiva (Viernes 23 de Octubre a las 22:00 hs)
    ========================================================================== */
 function initCountdown() {
-  // Fecha del evento: 23 de Octubre de 2026 a las 22:00:00 (Hora Argentina UTC-3)
   const eventDate = new Date('2026-10-23T22:00:00-03:00').getTime();
 
   const daysEl = document.getElementById('days');
@@ -52,7 +82,7 @@ function initCountdown() {
 }
 
 /* ==========================================================================
-   2. Copiar Alias (Teomp.15) con Notificación Toast
+   3. Copiar Alias (Teomp.15) con Notificación Toast
    ========================================================================== */
 function initCopyAlias() {
   const copyBtn = document.getElementById('btnCopyAlias');
@@ -74,8 +104,7 @@ function initCopyAlias() {
         document.body.removeChild(tempInput);
       }
 
-      // Feedback en botón
-      const originalText = copyBtn.innerHTML;
+      const originalHTML = copyBtn.innerHTML;
       copyBtn.classList.add('copied');
       copyBtn.innerHTML = `
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -86,7 +115,7 @@ function initCopyAlias() {
 
       setTimeout(() => {
         copyBtn.classList.remove('copied');
-        copyBtn.innerHTML = originalText;
+        copyBtn.innerHTML = originalHTML;
       }, 2500);
     } catch (err) {
       showToast(`Alias: ${aliasText}`);
@@ -104,27 +133,143 @@ function initCopyAlias() {
 }
 
 /* ==========================================================================
-   3. Lightbox para Galería de Fotos
+   4. Slider de Fotos Interactivo con Touch / Swipe y Autoplay
+   ========================================================================== */
+function initPhotoSlider() {
+  const track = document.getElementById('sliderTrack');
+  const slides = document.querySelectorAll('.slider-slide');
+  const prevBtn = document.getElementById('sliderPrevBtn');
+  const nextBtn = document.getElementById('sliderNextBtn');
+  const dotsContainer = document.getElementById('sliderDots');
+  const counterEl = document.getElementById('sliderCounter');
+  const wrapper = document.getElementById('sliderWrapper');
+
+  if (!track || slides.length === 0) return;
+
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  let autoplayTimer = null;
+
+  function updateSlider() {
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Actualizar dots
+    const dots = dotsContainer.querySelectorAll('.slider-dot');
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
+    });
+
+    // Actualizar contador
+    if (counterEl) {
+      counterEl.textContent = `${currentIndex + 1} / ${totalSlides}`;
+    }
+  }
+
+  function goToSlide(index) {
+    if (index < 0) {
+      currentIndex = totalSlides - 1;
+    } else if (index >= totalSlides) {
+      currentIndex = 0;
+    } else {
+      currentIndex = index;
+    }
+    updateSlider();
+  }
+
+  function nextSlide() {
+    goToSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(currentIndex - 1);
+  }
+
+  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+  // Dot clicks
+  if (dotsContainer) {
+    dotsContainer.addEventListener('click', (e) => {
+      const dot = e.target.closest('.slider-dot');
+      if (dot) {
+        const index = parseInt(dot.getAttribute('data-index'), 10);
+        goToSlide(index);
+        resetAutoplay();
+      }
+    });
+  }
+
+  // Autoplay continuo cada 3.5 segundos
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(nextSlide, 3500);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  function resetAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', stopAutoplay);
+    wrapper.addEventListener('mouseleave', startAutoplay);
+    wrapper.addEventListener('touchstart', stopAutoplay, { passive: true });
+    wrapper.addEventListener('touchend', startAutoplay, { passive: true });
+  }
+
+  startAutoplay();
+
+  // Soporte Touch Swipe para celulares
+  let startX = 0;
+  let endX = 0;
+
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  track.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const threshold = 45;
+    const diff = startX - endX;
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+      resetAutoplay();
+    }
+  }
+}
+
+/* ==========================================================================
+   5. Lightbox para Fotos del Slider
    ========================================================================== */
 function initLightbox() {
   const modal = document.getElementById('lightboxModal');
   const modalImg = document.getElementById('lightboxImg');
-  const modalCaption = document.getElementById('lightboxCaption');
   const closeBtn = document.getElementById('lightboxCloseBtn');
-  const cards = document.querySelectorAll('.gallery-card');
+  const slideCards = document.querySelectorAll('.slide-card');
 
   if (!modal || !modalImg || !closeBtn) return;
 
-  cards.forEach(card => {
+  slideCards.forEach(card => {
     card.addEventListener('click', () => {
-      const img = card.querySelector('.gallery-img');
-      const title = card.querySelector('.gallery-caption-title')?.textContent || '';
-      const desc = card.querySelector('.gallery-caption-desc')?.textContent || '';
-
+      const img = card.querySelector('.slide-image');
       if (img) {
         modalImg.src = img.src;
         modalImg.alt = img.alt || 'Foto de Mateo';
-        modalCaption.textContent = title ? `${title} - ${desc}` : '';
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
@@ -138,9 +283,7 @@ function initLightbox() {
 
   closeBtn.addEventListener('click', closeModal);
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
-    }
+    if (e.target === modal) closeModal();
   });
 
   document.addEventListener('keydown', (e) => {
@@ -151,7 +294,92 @@ function initLightbox() {
 }
 
 /* ==========================================================================
-   4. Reproductor de Melodía Ambiente Sofisticada (Web Audio API)
+   6. Botón Flotante Persistente de RSVP
+   ========================================================================== */
+function initFloatingRsvp() {
+  const floatingBtn = document.getElementById('floatingRsvpWrapper');
+  const heroSection = document.getElementById('inicio');
+
+  if (!floatingBtn || !heroSection) return;
+
+  window.addEventListener('scroll', () => {
+    const heroBottom = heroSection.getBoundingClientRect().bottom;
+    if (heroBottom < 100) {
+      floatingBtn.classList.add('show');
+    } else {
+      floatingBtn.classList.remove('show');
+    }
+  }, { passive: true });
+}
+
+/* ==========================================================================
+   7. Confeti Festivo Sutil (Canvas en Azul, Celeste y Plata)
+   ========================================================================== */
+function initConfetti() {
+  const canvas = document.getElementById('confettiCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas, { passive: true });
+
+  const colors = ['#0f244a', '#1e3a8a', '#2563eb', '#93c5fd', '#cbd5e1'];
+  let particles = [];
+  const maxParticles = 40;
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * -50,
+      size: Math.random() * 6 + 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      speedY: Math.random() * 1.5 + 0.8,
+      speedX: Math.random() * 1 - 0.5,
+      rotation: Math.random() * 360,
+      rotationSpeed: Math.random() * 2 - 1,
+      opacity: Math.random() * 0.7 + 0.3
+    };
+  }
+
+  for (let i = 0; i < maxParticles; i++) {
+    const p = createParticle();
+    p.y = Math.random() * canvas.height;
+    particles.push(p);
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+      ctx.restore();
+
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.rotation += p.rotationSpeed;
+
+      if (p.y > canvas.height + 20) {
+        Object.assign(p, createParticle());
+      }
+    });
+
+    requestAnimationFrame(render);
+  }
+
+  render();
+}
+
+/* ==========================================================================
+   8. Música Ambiente Sutil (Web Audio API)
    ========================================================================== */
 function initAmbientAudio() {
   const audioBtn = document.getElementById('audioToggleBtn');
@@ -161,18 +389,7 @@ function initAmbientAudio() {
   let isPlaying = false;
   let timerId = null;
 
-  // Secuencia de arpegio elegante y cálida en Do Mayor / La menor
-  const notes = [
-    523.25, // C5
-    659.25, // E5
-    783.99, // G5
-    987.77, // B5
-    880.00, // A5
-    659.25, // E5
-    783.99, // G5
-    587.33  // D5
-  ];
-
+  const notes = [523.25, 659.25, 783.99, 987.77, 880.00, 659.25, 783.99, 587.33];
   let noteIdx = 0;
 
   function playChimeNote(freq) {
@@ -184,7 +401,6 @@ function initAmbientAudio() {
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
-      // Envolvente suave estilo caja de música / campana fina
       gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.05);
       gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
@@ -195,7 +411,7 @@ function initAmbientAudio() {
       osc.start();
       osc.stop(audioCtx.currentTime + 1.2);
     } catch (e) {
-      console.warn('Audio note play error:', e);
+      console.warn('Audio error:', e);
     }
   }
 
@@ -215,13 +431,6 @@ function initAmbientAudio() {
 
     playStep();
     timerId = setInterval(playStep, 550);
-  }
-
-  function playStep() {
-    if (!isPlaying) return;
-    const freq = notes[noteIdx % notes.length];
-    playChimeNote(freq);
-    noteIdx++;
   }
 
   function stopMelody() {
