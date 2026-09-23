@@ -42,7 +42,7 @@
       </button>
     </header>
 
-    <!-- Sección Hero Principal -->
+    <!-- Sección Hero Principal (Foto y Texto Principal) -->
     <section id="inicio" class="hero-section reveal-on-scroll">
       <span class="hero-pill animate-float">Estás Invitado a Celebrar</span>
       <h1 class="hero-title animate-title">MATEO</h1>
@@ -66,7 +66,86 @@
       </div>
     </section>
 
-    <!-- Sección Cuenta Regresiva -->
+    <!-- Sección Galería de Fotos en SLIDER INTERACTIVO (Debajo de la foto y texto principal, arriba de la cuenta regresiva) -->
+    <section class="gallery-section reveal-on-scroll">
+      <div class="section-header-center">
+        <div class="section-label">Galería</div>
+        <h2 class="section-title">Fotos</h2>
+        <p class="gallery-subtext">Deslizá para ver las fotos</p>
+      </div>
+
+      <!-- Slider Touch-Friendly -->
+      <div class="slider-wrapper" id="sliderWrapper">
+        <div class="slider-track" id="sliderTrack">
+          
+          <!-- Slide 1: Helicóptero -->
+          <div class="slider-slide" data-slide="0">
+            <div class="slide-card">
+              <img src="assets/mateo-helicoptero.jpg" alt="Foto de Mateo" class="slide-image" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Slide 2: Fútbol -->
+          <div class="slider-slide" data-slide="1">
+            <div class="slide-card">
+              <img src="assets/mateo-futbol.jpg" alt="Foto de Mateo jugando al fútbol" class="slide-image" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Slide 3: Infancia y Tambor -->
+          <div class="slider-slide" data-slide="2">
+            <div class="slide-card">
+              <img src="assets/mateo-infancia-tambor.png" alt="Foto de Mateo en su infancia con tambor" class="slide-image" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Slide 4: Familia en la Playa -->
+          <div class="slider-slide" data-slide="3">
+            <div class="slide-card">
+              <img src="assets/mateo-familia-playa.png" alt="Foto de Mateo con Lorena y Omar en la playa" class="slide-image" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Slide 5: Mateo con Omar -->
+          <div class="slider-slide" data-slide="4">
+            <div class="slide-card">
+              <img src="assets/mateo-boca-omar.jpg" alt="Foto de Mateo y Omar" class="slide-image" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Slide 6: Mateo con Lorena -->
+          <div class="slider-slide" data-slide="5">
+            <div class="slide-card">
+              <img src="assets/mateo-cancha-lorena.jpg" alt="Foto de Mateo y Lorena" class="slide-image" loading="lazy">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Botones de Navegación Flechas -->
+        <button class="slider-arrow slider-arrow-prev" id="sliderPrevBtn" aria-label="Foto anterior">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="slider-arrow slider-arrow-next" id="sliderNextBtn" aria-label="Siguiente foto">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <!-- Indicadores / Dots -->
+        <div class="slider-dots-container" id="sliderDots">
+          <button class="slider-dot active" data-index="0" aria-label="Ir a foto 1"></button>
+          <button class="slider-dot" data-index="1" aria-label="Ir a foto 2"></button>
+          <button class="slider-dot" data-index="2" aria-label="Ir a foto 3"></button>
+          <button class="slider-dot" data-index="3" aria-label="Ir a foto 4"></button>
+          <button class="slider-dot" data-index="4" aria-label="Ir a foto 5"></button>
+          <button class="slider-dot" data-index="5" aria-label="Ir a foto 6"></button>
+        </div>
+
+        <!-- Contador numérico del slider -->
+        <div class="slider-counter-badge" id="sliderCounter">1 / 6</div>
+      </div>
+    </section>
+
+    <!-- Sección Cuenta Regresiva (Debajo del Slider) -->
     <section class="countdown-section reveal-on-scroll">
       <div class="section-label">Falta muy poco</div>
       <h2 class="section-title">Cuenta Regresiva</h2>
@@ -229,85 +308,6 @@
             <span>Copiar Alias</span>
           </button>
         </div>
-      </div>
-    </section>
-
-    <!-- Sección Galería de Fotos en SLIDER INTERACTIVO (Sin "mi camino") -->
-    <section class="gallery-section reveal-on-scroll">
-      <div class="section-header-center">
-        <div class="section-label">Galería</div>
-        <h2 class="section-title">Fotos</h2>
-        <p class="gallery-subtext">Deslizá para ver las fotos</p>
-      </div>
-
-      <!-- Slider Touch-Friendly -->
-      <div class="slider-wrapper" id="sliderWrapper">
-        <div class="slider-track" id="sliderTrack">
-          
-          <!-- Slide 1: Helicóptero -->
-          <div class="slider-slide" data-slide="0">
-            <div class="slide-card">
-              <img src="assets/mateo-helicoptero.jpg" alt="Foto de Mateo" class="slide-image" loading="lazy">
-            </div>
-          </div>
-
-          <!-- Slide 2: Fútbol -->
-          <div class="slider-slide" data-slide="1">
-            <div class="slide-card">
-              <img src="assets/mateo-futbol.jpg" alt="Foto de Mateo jugando al fútbol" class="slide-image" loading="lazy">
-            </div>
-          </div>
-
-          <!-- Slide 3: Infancia y Tambor -->
-          <div class="slider-slide" data-slide="2">
-            <div class="slide-card">
-              <img src="assets/mateo-infancia-tambor.png" alt="Foto de Mateo en su infancia con tambor" class="slide-image" loading="lazy">
-            </div>
-          </div>
-
-          <!-- Slide 4: Familia en la Playa -->
-          <div class="slider-slide" data-slide="3">
-            <div class="slide-card">
-              <img src="assets/mateo-familia-playa.png" alt="Foto de Mateo con Lorena y Omar en la playa" class="slide-image" loading="lazy">
-            </div>
-          </div>
-
-          <!-- Slide 5: Mateo con Omar -->
-          <div class="slider-slide" data-slide="4">
-            <div class="slide-card">
-              <img src="assets/mateo-boca-omar.jpg" alt="Foto de Mateo y Omar" class="slide-image" loading="lazy">
-            </div>
-          </div>
-
-          <!-- Slide 6: Mateo con Lorena -->
-          <div class="slider-slide" data-slide="5">
-            <div class="slide-card">
-              <img src="assets/mateo-cancha-lorena.jpg" alt="Foto de Mateo y Lorena" class="slide-image" loading="lazy">
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Botones de Navegación Flechas -->
-        <button class="slider-arrow slider-arrow-prev" id="sliderPrevBtn" aria-label="Foto anterior">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <button class="slider-arrow slider-arrow-next" id="sliderNextBtn" aria-label="Siguiente foto">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-
-        <!-- Indicadores / Dots -->
-        <div class="slider-dots-container" id="sliderDots">
-          <button class="slider-dot active" data-index="0" aria-label="Ir a foto 1"></button>
-          <button class="slider-dot" data-index="1" aria-label="Ir a foto 2"></button>
-          <button class="slider-dot" data-index="2" aria-label="Ir a foto 3"></button>
-          <button class="slider-dot" data-index="3" aria-label="Ir a foto 4"></button>
-          <button class="slider-dot" data-index="4" aria-label="Ir a foto 5"></button>
-          <button class="slider-dot" data-index="5" aria-label="Ir a foto 6"></button>
-        </div>
-
-        <!-- Contador numérico del slider -->
-        <div class="slider-counter-badge" id="sliderCounter">1 / 6</div>
       </div>
     </section>
 
