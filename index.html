@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación de Cumpleaños • Mateo</title>
+  <meta name="description" content="Te invito a celebrar mi cumpleaños. Viernes 23 de Octubre a las 22:00 hs en Salón Nago, Villa Vatteone. ¡Confirmá tu asistencia!">
+  
+  <!-- Open Graph / Redes Sociales -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Invitación Especial • Cumpleaños de Mateo">
+  <meta property="og:description" content="Con la bendición de Dios y el amor de mi familia, te espero para compartir una noche inolvidable. Viernes 23/10 en Salón Nago.">
+  <meta property="og:image" content="assets/foto-principal.jpg">
+
+  <!-- Google Fonts: Tipografía Clásica & Elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Barra Superior / Control de Audio -->
+    <header class="top-nav">
+      <a href="#inicio" class="brand-monogram" aria-label="Mateo Invitación">
+        <span class="monogram-icon">M</span>
+        <span>MATEO</span>
+      </a>
+
+      <button id="audioToggleBtn" class="audio-toggle-btn" title="Activar música ambiente">
+        <span class="audio-pulse-indicator"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+        <span class="audio-label">Música: Off</span>
+      </button>
+    </header>
+
+    <!-- Sección Hero Principal -->
+    <section id="inicio" class="hero-section">
+      <span class="hero-pill">Estás Invitado a Celebrar</span>
+      <h1 class="hero-title">MATEO</h1>
+      <p class="hero-subtitle">Mi Cumpleaños • Noche Inolvidable</p>
+
+      <!-- Foto Principal Destacada -->
+      <div class="main-photo-wrapper">
+        <div class="main-photo-inner">
+          <img src="assets/foto-principal.jpg" alt="Mateo - Foto Principal" class="main-photo-img" loading="eager">
+          <div class="photo-badge-date">VIERNES 23 DE OCTUBRE</div>
+        </div>
+      </div>
+
+      <!-- Dedicatoria Emotiva -->
+      <div class="dedication-card">
+        <p class="dedication-text">
+          Con la bendición de Dios y el amor que mi familia me ha dado, me siento feliz de llegar a este momento de mi vida, el día que dejaré atrás mi infancia y comenzaré un nuevo viaje. Gracias a mis padres Lorena y Omar, tienen el deseo de compartir este día especial.
+        </p>
+        <div class="dedication-author">— Mateo</div>
+        <div class="parents-tag">Con el amor de Lorena y Omar</div>
+      </div>
+    </section>
+
+    <!-- Sección Cuenta Regresiva -->
+    <section class="countdown-section">
+      <div class="section-label">Falta muy poco</div>
+      <h2 class="section-title">Cuenta Regresiva</h2>
+
+      <div class="countdown-grid">
+        <div class="countdown-card">
+          <span id="days" class="countdown-number">00</span>
+          <span class="countdown-label">Días</span>
+        </div>
+        <div class="countdown-card">
+          <span id="hours" class="countdown-number">00</span>
+          <span class="countdown-label">Horas</span>
+        </div>
+        <div class="countdown-card">
+          <span id="minutes" class="countdown-number">00</span>
+          <span class="countdown-label">Min</span>
+        </div>
+        <div class="countdown-card">
+          <span id="seconds" class="countdown-number">00</span>
+          <span class="countdown-label">Seg</span>
+        </div>
+      </div>
+
+      <!-- Botón Agendar Fecha -->
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumplea%C3%B1os+de+Mateo&dates=20261023T250000Z/20261024T080000Z&details=Festejo+del+cumplea%C3%B1os+de+Mateo.+Sal%C3%B3n+Nago%2C+Villa+Vatteone.+Dresscode%3A+Elegante+Sport+(Color+azul+prohibido).&location=3+de+febrero+esquina+mar+chiquita%2C+Sal%C3%B3n+Nago%2C+Villa+Vatteone" target="_blank" rel="noopener noreferrer" class="btn-calendar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>Agendar en Google Calendar</span>
+      </a>
+    </section>
+
+    <!-- Sección Cuándo y Dónde -->
+    <section class="event-info-section">
+      <div class="info-cards-stack">
+        
+        <!-- Tarjeta Cuándo -->
+        <div class="info-card">
+          <div class="info-card-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="info-card-content">
+            <div class="info-card-subtitle">Fecha y Horario</div>
+            <h3 class="info-card-title">Viernes 23 de Octubre</h3>
+            <p class="info-card-text">
+              Desde las <strong>22:00 hs</strong> hasta las <strong>05:00 am</strong>.<br>
+              ¡Vení listo para bailar y disfrutar toda la noche!
+            </p>
+          </div>
+        </div>
+
+        <!-- Tarjeta Dónde -->
+        <div class="info-card">
+          <div class="info-card-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <div class="info-card-content">
+            <div class="info-card-subtitle">Ubicación del Evento</div>
+            <h3 class="info-card-title">Salón Nago</h3>
+            <p class="info-card-text">
+              <strong>3 de Febrero esquina Mar Chiquita</strong><br>
+              Villa Vatteone, Florencio Varela
+            </p>
+
+            <div class="map-buttons-row">
+              <a href="https://www.google.com/maps/search/?api=1&query=3+de+febrero+esquina+mar+chiquita+villa+vatteone" target="_blank" rel="noopener noreferrer" class="btn-action-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                <span>Cómo Llegar en Google Maps</span>
+              </a>
+            </div>
+
+            <!-- Mapa Interactivo Embebido -->
+            <div class="map-embed-container">
+              <iframe 
+                src="https://maps.google.com/maps?q=3%20de%20febrero%20y%20mar%20chiquita,%20villa%20vatteone&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                title="Mapa Salón Nago, Villa Vatteone" 
+                loading="lazy">
+              </iframe>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Sección Dresscode -->
+    <section class="dresscode-section">
+      <div class="dresscode-card">
+        <div class="section-label">Código de Vestimenta</div>
+        <h2 class="dresscode-title">Dresscode</h2>
+        <div class="dresscode-badge">Elegante Sport</div>
+
+        <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 0.75rem;">
+          Te esperamos luciendo tu mejor look para celebrar a lo grande esta noche tan especial.
+        </p>
+
+        <!-- Regla Especial del Color Azul Prohibido -->
+        <div class="alert-blue-forbidden">
+          <span class="alert-icon">⚠️</span>
+          <div>
+            <div>¡RECORDÁ QUE EL COLOR AZUL ESTÁ PROHIBIDO!</div>
+            <span class="alert-subtext">El tono azul queda exclusivamente reservado para el agasajado. ¡Agradecemos tu colaboración!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Confirmación de Asistencia (RSVP) -->
+    <section id="confirmacion" class="rsvp-section">
+      <div class="rsvp-box">
+        <div class="rsvp-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>RSVP</span>
+        </div>
+        <h2 class="rsvp-title">Confirmá tu Asistencia</h2>
+        <p class="rsvp-desc">
+          Tu presencia es fundamental para mí. Por favor completá el breve formulario antes de la fecha para que podamos organizar todo a la perfección.
+        </p>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6eunSq3M0JU7AEEc3FDHYPXCZyqcEauJ_jpB_qielFPL_JQ/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-rsvp-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Completar Formulario de Asistencia</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Sección Regalos y Alias -->
+    <section class="gift-section">
+      <div class="gift-card">
+        <div class="gift-icon-bubble">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+        </div>
+        <div class="section-label">Sugerencia de Regalo</div>
+        <h2 class="gift-title">Mi Mayor Regalo es Tu Compañía</h2>
+        <p class="gift-phrase">
+          Si deseás hacerme un presente y no sabés qué regalarme, podés colaborar con mi viaje y proyectos a través de mi cuenta bancaria:
+        </p>
+
+        <div class="alias-box-wrapper">
+          <div class="alias-info">
+            <div class="alias-label">Alias de Cuenta</div>
+            <div class="alias-value" id="aliasValue">Teomp.15</div>
+          </div>
+          <button id="btnCopyAlias" class="btn-copy-alias" type="button" aria-label="Copiar Alias">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Copiar Alias</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Galería de Recuerdos / Mi Camino -->
+    <section class="gallery-section">
+      <div style="text-align: center; margin-bottom: 1.75rem;">
+        <div class="section-label">Recuerdos Inolvidables</div>
+        <h2 class="section-title">Mi Historia y Camino</h2>
+        <p style="font-size: 0.95rem; max-width: 480px; margin: 0 auto; color: var(--color-text-muted);">
+          Cada paso que di me trajo hasta este gran día. Hacé clic en las fotos para verlas en detalle.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        
+        <!-- Foto 1: Helicóptero / Aventuras -->
+        <div class="gallery-card" title="Ver foto">
+          <div class="gallery-img-container">
+            <img src="assets/mateo-helicoptero.jpg" alt="Mateo - Nuevos Horizontes" class="gallery-img" loading="lazy">
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-caption-title">Nuevos Horizontes</div>
+            <div class="gallery-caption-desc">Volando alto hacia nuevos sueños y metas.</div>
+          </div>
+        </div>
+
+        <!-- Foto 2: Fútbol / Pasión -->
+        <div class="gallery-card" title="Ver foto">
+          <div class="gallery-img-container">
+            <img src="assets/mateo-futbol.jpg" alt="Mateo - Pasión por el Fútbol" class="gallery-img" loading="lazy">
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-caption-title">Pasión y Deporte</div>
+            <div class="gallery-caption-desc">El amor por la camiseta y el juego en equipo.</div>
+          </div>
+        </div>
+
+        <!-- Foto 3: Infancia y Tambor -->
+        <div class="gallery-card" title="Ver foto">
+          <div class="gallery-img-container">
+            <img src="assets/mateo-infancia-tambor.png" alt="Mateo - Alegría desde la Infancia" class="gallery-img" loading="lazy">
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-caption-title">Alegría y Ritmo</div>
+            <div class="gallery-caption-desc">Creciendo con pasión, música y sonrisas.</div>
+          </div>
+        </div>
+
+        <!-- Foto 4: Familia en la Playa -->
+        <div class="gallery-card" title="Ver foto">
+          <div class="gallery-img-container">
+            <img src="assets/mateo-familia-playa.png" alt="Mateo con Lorena y Omar en la Playa" class="gallery-img" loading="lazy">
+          </div>
+          <div class="gallery-caption">
+            <div class="gallery-caption-title">Familia Incondicional</div>
+            <div class="gallery-caption-desc">Con mis queridos padres, Lorena y Omar.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+      <div class="footer-monogram">M</div>
+      <h3 class="footer-title">¡Te Espero Para Festejar!</h3>
+      <p class="footer-subtitle">
+        Tu presencia hará que esta noche sea realmente inolvidable.
+      </p>
+      <div class="footer-divider"></div>
+      <div class="footer-copy">
+        Mateo • 23 de Octubre de 2026 • Salón Nago
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Modal Lightbox para Ampliar Fotos -->
+  <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Visualizador de fotos">
+    <div class="lightbox-content">
+      <button id="lightboxCloseBtn" class="lightbox-close-btn" aria-label="Cerrar vista previa">✕</button>
+      <img id="lightboxImg" class="lightbox-img" src="" alt="">
+      <div id="lightboxCaption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Toast Flotante de Notificaciones -->
+  <div id="toastNotice" class="toast-notice" role="status" aria-live="polite"></div>
+
+  <!-- Scripts: ubicado en js/ para evitar cualquier interpretación de Node/Serverless en Vercel -->
+  <script src="js/app.js"></script>
+</body>
+</html>
