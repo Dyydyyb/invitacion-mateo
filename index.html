@@ -66,6 +66,128 @@
       </div>
     </section>
 
+    <!-- Sección Reproductor de Música Especial -->
+    <section class="music-section reveal-on-scroll" id="musica">
+      <div class="section-header-center">
+        <div class="section-label">Música Especial</div>
+        <h2 class="section-title">Canción de la Celebración</h2>
+        <p class="music-subtext">Escuchá la canción elegida por Mateo para compartir este momento especial</p>
+      </div>
+
+      <div class="music-player-card animate-card">
+        <!-- Glow decorativo de fondo -->
+        <div class="music-card-glow"></div>
+
+        <!-- Barra superior del reproductor -->
+        <div class="music-top-bar">
+          <div class="music-status-pill">
+            <span class="music-status-dot" id="musicLiveDot"></span>
+            <span class="music-status-text" id="playerStatusText">Pausado</span>
+          </div>
+          <div class="music-badge-genre">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+            <span>Tema Especial</span>
+          </div>
+        </div>
+
+        <!-- Contenido principal: Vinilo y Datos del tema -->
+        <div class="music-main-layout">
+          <!-- Vinilo animado -->
+          <div class="vinyl-container" id="vinylWrapper">
+            <div class="vinyl-disc" id="vinylDisc">
+              <div class="vinyl-groove groove-1"></div>
+              <div class="vinyl-groove groove-2"></div>
+              <div class="vinyl-groove groove-3"></div>
+              <div class="vinyl-center">
+                <div class="vinyl-label-center">
+                  <span class="vinyl-cross">✝</span>
+                  <span class="vinyl-sublabel">MATEO</span>
+                </div>
+              </div>
+            </div>
+            <div class="vinyl-tonearm" id="vinylTonearm"></div>
+          </div>
+
+          <!-- Información del tema y ecualizador -->
+          <div class="music-track-info">
+            <h3 class="music-track-title">Ayer Hablé Con Dios</h3>
+            <p class="music-track-artist">Corrido Cristiano • Fierro Records</p>
+            
+            <!-- Ecualizador animado -->
+            <div class="music-wave-bars" id="musicWaveBars" aria-hidden="true">
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra de progreso interactiva -->
+        <div class="music-timeline-box">
+          <div class="music-progress-wrapper" id="musicProgressWrapper" role="slider" aria-label="Progreso del tema" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+            <div class="music-progress-fill" id="musicProgressFill">
+              <span class="music-progress-thumb"></span>
+            </div>
+          </div>
+          <div class="music-time-display">
+            <span id="musicCurrentTime">0:00</span>
+            <span id="musicDuration">--:--</span>
+          </div>
+        </div>
+
+        <!-- Controles de Reproducción -->
+        <div class="music-controls">
+          <!-- Botón -10s -->
+          <button type="button" class="music-btn-ctrl music-btn-skip" id="btnRewind10" aria-label="Retroceder 10 segundos" title="Retroceder 10s">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+            <span class="btn-skip-text">10s</span>
+          </button>
+
+          <!-- Botón Play / Pause Principal -->
+          <button type="button" class="music-btn-play hover-lift" id="btnMainPlay" aria-label="Reproducir música" title="Reproducir">
+            <svg class="music-icon-play" id="iconPlay" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="6 4 20 12 6 20 6 4"></polygon>
+            </svg>
+            <svg class="music-icon-pause" id="iconPause" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+              <rect x="6" y="4" width="4" height="16" rx="1.5"></rect>
+              <rect x="14" y="4" width="4" height="16" rx="1.5"></rect>
+            </svg>
+          </button>
+
+          <!-- Botón +10s -->
+          <button type="button" class="music-btn-ctrl music-btn-skip" id="btnForward10" aria-label="Adelantar 10 segundos" title="Adelantar 10s">
+            <span class="btn-skip-text">10s</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+          </button>
+
+          <!-- Botón Silencio / Volumen -->
+          <button type="button" class="music-btn-ctrl music-btn-vol" id="btnVolumeToggle" aria-label="Silenciar o reactivar sonido" title="Volumen">
+            <svg class="music-icon-vol-on" id="iconVolOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <svg class="music-icon-vol-off" id="iconVolOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Audio Element -->
+        <audio id="mainAudioElement" preload="metadata">
+          <source src="assets/ayer-hable-con-dios.mp3" type="audio/mpeg">
+          Tu navegador no soporta la reproducción de audio.
+        </audio>
+      </div>
+    </section>
+
     <!-- Sección Galería de Fotos en SLIDER INTERACTIVO (Debajo de la foto y texto principal, arriba de la cuenta regresiva) -->
     <section class="gallery-section reveal-on-scroll">
       <div class="section-header-center">

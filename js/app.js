@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPhotoSlider();
   initLightbox();
   initFloatingRsvp();
-  initAmbientAudio();
+  initMusicPlayer();
   initConfetti();
 });
 
@@ -379,76 +379,204 @@ function initConfetti() {
 }
 
 /* ==========================================================================
-   8. Música Ambiente Sutil (Web Audio API)
+   8. Reproductor de Música Premium ("Ayer Hablé Con Dios")
    ========================================================================== */
-function initAmbientAudio() {
-  const audioBtn = document.getElementById('audioToggleBtn');
-  if (!audioBtn) return;
+function initMusicPlayer() {
+  const audio = document.getElementById('mainAudioElement');
+  const btnMainPlay = document.getElementById('btnMainPlay');
+  const btnTopNav = document.getElementById('audioToggleBtn');
+  const iconPlay = document.getElementById('iconPlay');
+  const iconPause = document.getElementById('iconPause');
+  const btnRewind = document.getElementById('btnRewind10');
+  const btnForward = document.getElementById('btnForward10');
+  const btnVolume = document.getElementById('btnVolumeToggle');
+  const iconVolOn = document.getElementById('iconVolOn');
+  const iconVolOff = document.getElementById('iconVolOff');
+  const progressWrapper = document.getElementById('musicProgressWrapper');
+  const progressFill = document.getElementById('musicProgressFill');
+  const currentTimeEl = document.getElementById('musicCurrentTime');
+  const durationEl = document.getElementById('musicDuration');
+  const vinylWrapper = document.getElementById('vinylWrapper');
+  const waveBars = document.getElementById('musicWaveBars');
+  const statusDot = document.getElementById('musicLiveDot');
+  const statusText = document.getElementById('playerStatusText');
 
-  let audioCtx = null;
-  let isPlaying = false;
-  let timerId = null;
+  if (!audio) return;
 
-  const notes = [523.25, 659.25, 783.99, 987.77, 880.00, 659.25, 783.99, 587.33];
-  let noteIdx = 0;
+  function formatTime(seconds) {
+    if (isNaN(seconds) || seconds < 0) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${String(secs).padStart(2, '0')}`;
+  }
 
-  function playChimeNote(freq) {
-    if (!audioCtx) return;
-    try {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
+  function updateUIState(isPlaying) {
+    if (iconPlay && iconPause) {
+      iconPlay.style.display = isPlaying ? 'none' : 'block';
+      iconPause.style.display = isPlaying ? 'block' : 'none';
+    }
 
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    if (btnMainPlay) {
+      btnMainPlay.setAttribute('title', isPlaying ? 'Pausar música' : 'Reproducir música');
+      btnMainPlay.setAttribute('aria-label', isPlaying ? 'Pausar música' : 'Reproducir música');
+    }
 
-      gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.05);
-      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+    if (vinylWrapper) {
+      vinylWrapper.classList.toggle('playing', isPlaying);
+    }
+    if (waveBars) {
+      waveBars.classList.toggle('playing', isPlaying);
+    }
+    if (statusDot) {
+      statusDot.classList.toggle('playing', isPlaying);
+    }
+    if (statusText) {
+      statusText.textContent = isPlaying ? 'Reproduciendo...' : 'Pausado';
+    }
 
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start();
-      osc.stop(audioCtx.currentTime + 1.2);
-    } catch (e) {
-      console.warn('Audio error:', e);
+    if (btnTopNav) {
+      btnTopNav.classList.toggle('playing', isPlaying);
+      const label = btnTopNav.querySelector('.audio-label');
+      if (label) {
+        label.textContent = isPlaying ? 'Música: On' : 'Música: Off';
+      }
     }
   }
 
-  function startMelody() {
-    if (!audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-
-    isPlaying = true;
-    audioBtn.classList.add('playing');
-    const labelSpan = audioBtn.querySelector('.audio-label');
-    if (labelSpan) labelSpan.textContent = 'Música: On';
-
-    playStep();
-    timerId = setInterval(playStep, 550);
-  }
-
-  function stopMelody() {
-    isPlaying = false;
-    audioBtn.classList.remove('playing');
-    const labelSpan = audioBtn.querySelector('.audio-label');
-    if (labelSpan) labelSpan.textContent = 'Música: Off';
-    if (timerId) {
-      clearInterval(timerId);
-      timerId = null;
-    }
-  }
-
-  audioBtn.addEventListener('click', () => {
-    if (!isPlaying) {
-      startMelody();
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        updateUIState(true);
+      }).catch((err) => {
+        console.warn('Reproducción de audio bloqueada o pendiente de interacción:', err);
+        updateUIState(false);
+      });
     } else {
-      stopMelody();
+      audio.pause();
+      updateUIState(false);
+    }
+  }
+
+  if (btnMainPlay) {
+    btnMainPlay.addEventListener('click', togglePlay);
+  }
+
+  if (btnTopNav) {
+    btnTopNav.addEventListener('click', togglePlay);
+  }
+
+  audio.addEventListener('play', () => updateUIState(true));
+  audio.addEventListener('pause', () => updateUIState(false));
+  audio.addEventListener('ended', () => {
+    updateUIState(false);
+    if (progressFill) progressFill.style.width = '0%';
+    if (currentTimeEl) currentTimeEl.textContent = '0:00';
+  });
+
+  function setDuration() {
+    if (durationEl && audio.duration && !isNaN(audio.duration)) {
+      durationEl.textContent = formatTime(audio.duration);
+    }
+  }
+
+  audio.addEventListener('loadedmetadata', setDuration);
+  audio.addEventListener('durationchange', setDuration);
+  audio.addEventListener('canplay', setDuration);
+  if (audio.readyState >= 1) {
+    setDuration();
+  }
+
+  let isDraggingProgress = false;
+
+  audio.addEventListener('timeupdate', () => {
+    if (!isDraggingProgress && audio.duration) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      if (progressFill) {
+        progressFill.style.width = `${percent}%`;
+      }
+      if (progressWrapper) {
+        progressWrapper.setAttribute('aria-valuenow', Math.round(percent));
+      }
+    }
+    if (currentTimeEl) {
+      currentTimeEl.textContent = formatTime(audio.currentTime);
     }
   });
+
+  function seekByEvent(e) {
+    if (!progressWrapper || !audio.duration) return;
+    const rect = progressWrapper.getBoundingClientRect();
+    const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+    const clickX = Math.max(0, Math.min(rect.width, clientX - rect.left));
+    const percent = clickX / rect.width;
+
+    if (progressFill) {
+      progressFill.style.width = `${percent * 100}%`;
+    }
+    audio.currentTime = percent * audio.duration;
+    if (currentTimeEl) {
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
+  }
+
+  if (progressWrapper) {
+    progressWrapper.addEventListener('click', (e) => {
+      seekByEvent(e);
+    });
+
+    progressWrapper.addEventListener('pointerdown', (e) => {
+      isDraggingProgress = true;
+      seekByEvent(e);
+
+      function onPointerMove(moveEvent) {
+        if (isDraggingProgress) {
+          seekByEvent(moveEvent);
+        }
+      }
+
+      function onPointerUp(upEvent) {
+        if (isDraggingProgress) {
+          seekByEvent(upEvent);
+          isDraggingProgress = false;
+          window.removeEventListener('pointermove', onPointerMove);
+          window.removeEventListener('pointerup', onPointerUp);
+        }
+      }
+
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
+    });
+
+    progressWrapper.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+        audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 5);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+        audio.currentTime = Math.max(0, audio.currentTime - 5);
+      }
+    });
+  }
+
+  if (btnRewind) {
+    btnRewind.addEventListener('click', () => {
+      audio.currentTime = Math.max(0, audio.currentTime - 10);
+    });
+  }
+
+  if (btnForward) {
+    btnForward.addEventListener('click', () => {
+      audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 10);
+    });
+  }
+
+  if (btnVolume) {
+    btnVolume.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      if (iconVolOn && iconVolOff) {
+        iconVolOn.style.display = audio.muted ? 'none' : 'block';
+        iconVolOff.style.display = audio.muted ? 'block' : 'none';
+      }
+      btnVolume.setAttribute('title', audio.muted ? 'Activar sonido' : 'Silenciar sonido');
+      btnVolume.setAttribute('aria-label', audio.muted ? 'Activar sonido' : 'Silenciar sonido');
+    });
+  }
 }
